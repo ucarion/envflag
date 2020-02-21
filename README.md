@@ -16,7 +16,6 @@ To:
 
 ```golang
 envflag.Parse()
-flag.Parse()
 ```
 
 And you'll get env variable goodness. No further changes required.
@@ -69,7 +68,6 @@ func main() {
   bar := flag.Int("bar", 123, "some int param")
 
   envflag.Parse()
-  flag.Parse()
 
   fmt.Println("foo", *foo)
   fmt.Println("bar", *bar)
@@ -111,8 +109,11 @@ envflag.Parse()
 Do:
 
 ```golang
-// The first parameter to ParseFlagSet is a prefix for all env variables.
+// The first parameter to Load is a prefix for all env variables. The empty
+// string disables prefixing env variables.
 //
-// The empty string disables prefixing env variables.
-envflag.ParseFlagSet("", flag.CommandLine)
+// Unlike envflag.Parse, envflag.Load does not call flag.Parse() for
+// you. So you'll need to call flag.Parse() yourself.
+envflag.Load("", flag.CommandLine)
+flag.Parse()
 ```
