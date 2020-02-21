@@ -21,8 +21,14 @@ import (
 // Parse ultimately calls ParseFlagSet. If you want to parse into another
 // FlagSet than flag.CommandLine, or if you would like to customize or remove
 // the os.Args[0] prefix, then consider using ParseFlagSet instead.
+//
+// Parse will call flag.Parse(). Though there are no negative consequences to
+// calling flag.Parse() after calling flagenv.Parse(), there are no benefits
+// either. If you don't want this package to call flag.Parse(), then use
+// ParseFlagSet instead.
 func Parse() {
 	ParseFlagSet(filepath.Base(os.Args[0]), flag.CommandLine)
+	flag.Parse()
 }
 
 // ParseFlagSet loads environment variables into a flag.FlagSet.

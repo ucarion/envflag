@@ -72,7 +72,6 @@ func TestParseFlagSet(t *testing.T) {
 			env:  map[string]string{},
 			fn: func(t *testing.T) {
 				envflag.Parse()
-				flag.Parse()
 
 				assert.Equal(t, "default-a", *a)
 				assert.Equal(t, 123, *b)
@@ -89,7 +88,6 @@ func TestParseFlagSet(t *testing.T) {
 			},
 			fn: func(t *testing.T) {
 				envflag.Parse()
-				flag.Parse()
 
 				assert.Equal(t, "from-env", *a)
 				assert.Equal(t, 123, *b)
@@ -106,7 +104,6 @@ func TestParseFlagSet(t *testing.T) {
 			},
 			fn: func(t *testing.T) {
 				envflag.Parse()
-				flag.Parse()
 
 				assert.Equal(t, "from-argv", *a)
 				assert.Equal(t, 123, *b)
