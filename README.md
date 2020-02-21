@@ -1,7 +1,9 @@
-# envflag [![godoc][godoc-badge]][godoc-url]
+# envflag [![godoc][godoc-badge]][godoc-url] [![ci][ci-badge]][ci-url]
 
 [godoc-badge]: https://godoc.org/github.com/ucarion/envflag?status.svg
 [godoc-url]: https://godoc.org/github.com/ucarion/envflag
+[ci-badge]: https://github.com/ucarion/envflag/workflows/CI/badge.svg?branch=master
+[ci-url]: https://github.com/ucarion/envflag/actions
 
 `envflag` is a Golang package that enhances the standard library's `flag`
 package with the ability to read from environment variables. Just change:
