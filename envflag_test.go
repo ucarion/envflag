@@ -181,7 +181,7 @@ func TestParseFlagSet(t *testing.T) {
 			name: "custom flagset with prefix, override partially via env, override that with argv",
 			args: []string{},
 			env: map[string]string{
-				"SOME_PREFIX_A":          "from-xenv",
+				"SOME_PREFIX_A":          "from-env",
 				"SOME_PREFIX_HAS_DASHES": "true",
 			},
 			fn: func(t *testing.T) {
@@ -191,7 +191,7 @@ func TestParseFlagSet(t *testing.T) {
 				c := fs.Bool("has-dashes", false, "")
 
 				assert.NoError(t, envflag.ParseFlagSet("some-prefix", fs))
-				assert.NoError(t, fs.Parse([]string{"--a=from-argv"}))
+				assert.NoError(t, fs.Parse([]string{"--a=from-xargv"}))
 
 				assert.Equal(t, "from-argv", *a)
 				assert.Equal(t, 123, *b)
