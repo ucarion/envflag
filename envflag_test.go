@@ -181,7 +181,7 @@ func TestParseFlagSet(t *testing.T) {
 			name: "custom flagset with prefix, override partially via env, override that with argv",
 			args: []string{},
 			env: map[string]string{
-				"SOME_PREFIX_A":          "from-env",
+				"SOME_PREFIX_A":          "from-xenv",
 				"SOME_PREFIX_HAS_DASHES": "true",
 			},
 			fn: func(t *testing.T) {
