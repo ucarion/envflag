@@ -121,7 +121,7 @@ func TestParseFlagSet(t *testing.T) {
 				b := fs.Int("b", 123, "")
 				c := fs.Bool("has-dashes", false, "")
 
-				assert.NoError(t, envflag.ParseFlagSet("", fs))
+				assert.NoError(t, envflag.Load("", fs))
 				assert.NoError(t, fs.Parse([]string{}))
 
 				assert.Equal(t, "default", *a)
@@ -143,7 +143,7 @@ func TestParseFlagSet(t *testing.T) {
 				b := fs.Int("b", 123, "")
 				c := fs.Bool("has-dashes", false, "")
 
-				assert.NoError(t, envflag.ParseFlagSet("", fs))
+				assert.NoError(t, envflag.Load("", fs))
 				assert.NoError(t, fs.Parse([]string{}))
 
 				assert.Equal(t, "from-env", *a)
@@ -165,7 +165,7 @@ func TestParseFlagSet(t *testing.T) {
 				b := fs.Int("b", 123, "")
 				c := fs.Bool("has-dashes", false, "")
 
-				assert.NoError(t, envflag.ParseFlagSet("", fs))
+				assert.NoError(t, envflag.Load("", fs))
 				assert.NoError(t, fs.Parse([]string{"--a=from-argv"}))
 
 				assert.Equal(t, "from-argv", *a)
@@ -187,7 +187,7 @@ func TestParseFlagSet(t *testing.T) {
 				b := fs.Int("b", 123, "")
 				c := fs.Bool("has-dashes", false, "")
 
-				assert.NoError(t, envflag.ParseFlagSet("some-prefix", fs))
+				assert.NoError(t, envflag.Load("some-prefix", fs))
 				assert.NoError(t, fs.Parse([]string{"--a=from-argv"}))
 
 				assert.Equal(t, "from-argv", *a)
@@ -207,7 +207,7 @@ func TestParseFlagSet(t *testing.T) {
 				fs.Int("b", 123, "")
 
 				assert.Panics(t, func() {
-					envflag.ParseFlagSet("", fs)
+					envflag.Load("", fs)
 				})
 			},
 		},
@@ -222,7 +222,7 @@ func TestParseFlagSet(t *testing.T) {
 				fs := flag.NewFlagSet("", flag.ContinueOnError)
 				fs.Int("b", 123, "")
 
-				assert.Equal(t, "parse error", envflag.ParseFlagSet("", fs).Error())
+				assert.Equal(t, "parse error", envflag.Load("", fs).Error())
 			},
 		},
 	}

@@ -112,8 +112,8 @@ Do:
 // The first parameter to ParseFlagSet is a prefix for all env variables. The
 // empty string disables prefixing env variables.
 //
-// Unlike envflag.Parse, envflag.ParseFlagSet does not call flag.Parse() for
+// Unlike envflag.Parse, envflag.Load does not call flag.Parse() for
 // you. So you'll need to call flag.Parse() yourself.
-envflag.ParseFlagSet("", flag.CommandLine)
+envflag.Load("", flag.CommandLine)
 flag.Parse()
 ```
