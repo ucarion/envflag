@@ -10,47 +10,6 @@ import (
 	"github.com/ucarion/envflag"
 )
 
-// func withArgv(fn func()) {
-// 	defer func(args []string) {
-// 		os.Args = args
-// 	}(os.Args)
-
-// 	fn()
-// }
-
-// func TestParse(t *testing.T) {
-// 	initialArgv := os.Args
-// 	initialEnv := os.Environ()
-
-// 	defer func() {
-// 		os.Args = initialArgv
-
-// 		os.Clearenv()
-// 		for _, env := range initialEnv {
-// 			parts := strings.SplitN(env, "=", 2)
-// 			os.Setenv(parts[0], parts[1])
-// 		}
-// 	}()
-
-// 	a := flag.String("a", "default-a", "")
-// 	b := flag.Int("b", 123, "")
-
-// 	os.Args = []string{"testparse", "--a=foo"}
-// 	os.Clearenv()
-// 	os.Setenv("TESTPARSE_B", "456")
-
-// 	envflag.Parse()
-// 	flag.Parse()
-
-// 	if *a != "foo" {
-// 		t.Errorf("expected a to be foo, was: %s", *a)
-// 	}
-
-// 	if *b != 456 {
-// 		t.Errorf("expected b to be 456, was: %d", *b)
-// 	}
-// }
-
 func TestParseFlagSet(t *testing.T) {
 	// You can't un-set flags. So we set up the flags.CommandLine flags here,
 	// outside of the individual tests.
@@ -106,6 +65,21 @@ func TestParseFlagSet(t *testing.T) {
 				envflag.Parse()
 
 				assert.Equal(t, "from-argv", *a)
+				assert.Equal(t, 123, *b)
+				assert.Equal(t, true, *c)
+			},
+		},
+
+		testCase{
+			name: "flags.CommandLine, override value to be empty string",
+			args: []string{"cmd"},
+			env: map[string]string{
+				"CMD_A": "",
+			},
+			fn: func(t *testing.T) {
+				envflag.Parse()
+
+				assert.Equal(t, "", *a)
 				assert.Equal(t, 123, *b)
 				assert.Equal(t, true, *c)
 			},

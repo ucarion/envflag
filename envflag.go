@@ -54,7 +54,7 @@ func Load(prefix string, fs *flag.FlagSet) error {
 
 	fs.VisitAll(func(f *flag.Flag) {
 		if err == nil {
-			if env := os.Getenv(flagNameToEnvKey(prefix, f.Name)); env != "" {
+			if env, ok := os.LookupEnv(flagNameToEnvKey(prefix, f.Name)); ok {
 				err = f.Value.Set(env)
 			}
 		}
